@@ -11,10 +11,37 @@ public class Song {
         this.durationInSeconds = durationInSeconds;
     }
 
+    public String getArtist() {
+        return this.artist;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public int getDuration() {
+        return this.durationInSeconds;
+    }
+
+    @Override
+    public boolean equals(Object compared) {
+        if (compared == this) {
+            return true;
+        }
+        if (!(compared instanceof Song)) {
+            return false;
+        }
+        Song comparedSong = (Song) compared;
+        if (comparedSong.getArtist().equals(this.artist) && comparedSong.getName().equals(this.name)
+                && comparedSong.getDuration() == this.durationInSeconds) {
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public String toString() {
         return this.artist + ": " + this.name + " (" + this.durationInSeconds + " s)";
     }
-
 
 }
