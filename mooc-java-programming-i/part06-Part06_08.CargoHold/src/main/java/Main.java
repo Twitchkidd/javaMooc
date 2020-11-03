@@ -2,7 +2,9 @@
 public class Main {
 
     public static void main(String[] args) {
-        // You can use the main to test your classes!
+        Suitcase m = new Suitcase(10);
+        Hold r = new Hold(100);
+        r.addSuitcase(m);
     }
 
 }
