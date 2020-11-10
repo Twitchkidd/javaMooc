@@ -4,7 +4,7 @@ public class MainProgram {
     public static void main(String[] args) {
         // write your test code here
         int[] array = { 3, 1, 5, 99, 3, 12 };
-        System.out.println(indexOfSmallest(array));
+
     }
 
     public static int smallest(int[] array) {
@@ -48,6 +48,21 @@ public class MainProgram {
     }
 
     public static void sort(int[] array) {
+        System.out.println(array);
+        if (array.length == 1) {
+            return;
+        }
+        int indexOfSmallest = indexOfSmallest(array);
+        int valueOfFirst = array[0];
+        array[0] = array[indexOfSmallest];
+        array[indexOfSmallest] = valueOfFirst;
+        for (int i = 1; i <= array.length - 1; i++) {
+            int indexOfSmallestFrom = indexOfSmallestFrom(array, i);
+            int valueOfFirstFrom = array[i];
+            array[i] = array[indexOfSmallestFrom];
+            array[indexOfSmallestFrom] = valueOfFirstFrom;
+            System.out.println(array);
+        }
 
     }
 }
