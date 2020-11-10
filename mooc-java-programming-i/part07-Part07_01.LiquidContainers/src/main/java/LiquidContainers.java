@@ -2,43 +2,53 @@
 import java.util.Scanner;
 
 public class LiquidContainers {
-    private static int first;
-    private static int second;
 
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
-
+        int first = 0;
+        int second = 0;
         while (true) {
             System.out.println("First: " + first + "/100");
             System.out.println("Second: " + second + "/100");
-
             String input = scan.nextLine();
-            String[] parts = input.split(" ");
-            if (parts[0].equals("quit")) {
+            if (input.equals("quit")) {
                 break;
             }
+            String[] parts = input.split(" ");
+            int amt = Integer.valueOf(parts[1]);
             if (parts[0].equals("add")) {
-                if (Integer.valueOf(parts[1]) < 0) {
-                    break;
+                if (amt < 0) {
+                    continue;
                 }
-                if (first + Integer.valueOf(parts[1]) <= 100) {
-                    first += Integer.valueOf(parts[1]);
+                if (first + amt <= 100) {
+                    first += amt;
                 } else {
-                    if ((second + (Integer.valueOf(parts[1]) - 100)) <= 100) {
-                        first = 100;
-                        second += (Integer.valueOf(parts[1]) - 100);
-                    } else {
-                        first = 100;
-                        second = 100;
-                    }
+                    first = 100;
                 }
             }
             if (parts[0].equals("move")) {
-                if (Integer.valueOf(parts[1]) < 0) {
-                    break;
+                if (amt > first) {
+                    if ((first + second) > 100) {
+                        second = 100;
+                    } else {
+                        second += first;
+                    }
+                    first = 0;
+                } else {
+                    if ((amt + second) > 100) {
+                        first -= amt;
+                        second = 100;
+                    } else {
+                        first -= amt;
+                        second += amt;
+                    }
                 }
-                if (first - Integer.valueOf(parts[1] < 0) {
-                    // you're supposed to continue this way and maybe pick up on function and then go on to classes
+            }
+            if (parts[0].equals("remove")) {
+                if (amt > second) {
+                    second = 0;
+                } else {
+                    second -= amt;
                 }
             }
         }
