@@ -44,11 +44,19 @@ public class Searching {
     }
 
     public static int linearSearch(ArrayList<Book> books, int searchedId) {
+        for (int i = 0; i < books.size(); i++) {
+            if (searchedId == books.get(i).getId()) {
+                return i;
+            }
+        }
         return -1;
     }
 
     public static int binarySearch(ArrayList<Book> books, long searchedId) {
+        ArrayList<Book> sortedBooks = (ArrayList<Book>) books.clone();
+        while (true) {
+
+        }
         return -1;
     }
 }
-
