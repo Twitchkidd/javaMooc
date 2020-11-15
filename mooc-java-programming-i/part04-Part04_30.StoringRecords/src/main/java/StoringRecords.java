@@ -16,7 +16,6 @@ public class StoringRecords {
         System.out.println("Persons:");
         for (Person person : records) {
             System.out.println(person);
-
         }
     }
 
