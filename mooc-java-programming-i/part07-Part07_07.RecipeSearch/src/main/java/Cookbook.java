@@ -8,35 +8,81 @@ public class Cookbook {
   public Cookbook(String file) {
     this.recipes = new ArrayList<>();
     try (Scanner fScanner = new Scanner(Paths.get(file))) {
-      boolean started = false;
-      boolean nameTaken = false;
-      boolean cookTimeTaken = false;
-      String tmpName = "";
-      int tmpCookTime = 0;
-      ArrayList<String> tmpIngredients = new ArrayList<>();
+      String name = "";
+      int cookTime = 0;
+      ArrayList<String> ingredients = new ArrayList<>();
+      boolean timeRecorded = false;
       while (fScanner.hasNextLine()) {
         String next = fScanner.nextLine();
-        // you should use a for loop here, until i > 2 && hasNextLine tests
         if (next.isEmpty()) {
-          if (!fScanner.hasNextLine()) {
-            break;
+          if (!name.isEmpty()) {
+            ArrayList<String> newIngredients = new ArrayList<String>(ingredients);
+            this.recipes.add(new Recipe(name, cookTime, (ArrayList<String>) newIngredients));
           }
-          started = false;
+          name = "";
+          ingredients.clear();
+          timeRecorded = false;
           continue;
         }
-        if (started == false) {
-          started = true;
-          tmpName = next;
-          nameTaken = true;
+        if (timeRecorded) {
+          ingredients.add(next);
           continue;
         }
-        if (nameTaken == true && cookTimeTaken == false) {
-
+        if (!name.isEmpty()) {
+          cookTime = Integer.valueOf(next);
+          timeRecorded = true;
+          continue;
         }
-
+        name = next;
       }
+      this.recipes.add(new Recipe(name, cookTime, ingredients));
+      System.out.println("");
     } catch (Exception e) {
       System.out.println(e);
     }
+  }
+
+  public void list() {
+    System.out.println("Recipes:");
+    for (Recipe recipe : this.recipes) {
+      System.out.println(recipe);
+    }
+    System.out.println("");
+  }
+
+  public void nameSearch(String search) {
+    System.out.println("Recipes:");
+    for (Recipe recipe : this.recipes) {
+      if (recipe.getName().contains(search)) {
+        System.out.println(recipe);
+      }
+    }
+    System.out.println("");
+  }
+
+  public void cookingTimeSearch(int searchTime) {
+    System.out.println("Recipes:");
+    for (Recipe recipe : this.recipes) {
+      if (searchTime >= recipe.getCookTime()) {
+        System.out.println(recipe);
+      }
+    }
+    System.out.println("");
+  }
+
+  public void ingredientSearch(String search) {
+    System.out.println("Recipes:");
+    for (Recipe recipe : this.recipes) {
+      boolean gotIt = false;
+      for (String ingredient : recipe.getIngredients()) {
+        if (ingredient.equals(search)) {
+          gotIt = true;
+        }
+      }
+      if (gotIt) {
+        System.out.println(recipe);
+      }
+    }
+    System.out.println("");
   }
 }
