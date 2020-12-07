@@ -21,14 +21,11 @@ public class SimpleDate {
             return true;
         }
 
-        if (this.year == other.year
-                && this.month < other.month) {
+        if (this.year == other.year && this.month < other.month) {
             return true;
         }
 
-        if (this.year == other.year
-                && this.month == other.month
-                && this.day < other.day) {
+        if (this.year == other.year && this.month == other.month && this.day < other.day) {
             return true;
         }
 
@@ -49,6 +46,21 @@ public class SimpleDate {
         }
 
         return this.year - other.year - yearRemoved;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
+        if (!(object instanceof SimpleDate)) {
+            return false;
+        }
+        SimpleDate simpleDate = (SimpleDate) object;
+        if (this.toString().equals(simpleDate.toString())) {
+            return true;
+        }
+        return false;
     }
 
 }
